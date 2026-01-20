@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: estoque-service
+server:
+  port: 8081
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serizalizer: org.apache.kafka.commom.serialization.StringSerializer
+      value-serializer: org.apache.kafka.commom.serialization.StirngSerializer
