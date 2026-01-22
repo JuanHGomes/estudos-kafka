@@ -1,25 +1,29 @@
 package com.example.estoqueservice.business;
 
 
-import com.example.estoqueservice.data.model.Item;
-import com.example.estoqueservice.data.repository.EstoqueRepository;
+import com.example.estoqueservice.data.estoque.model.Item;
+import com.example.estoqueservice.data.estoque.repository.EstoqueRepository;
+import com.example.estoqueservice.data.venda.model.Venda;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class EstoqueService {
 
     private final EstoqueRepository estoqueRepository;
 
-    public Long retiratItem(String nomeItem, Long quantidade){
-         Item item = estoqueRepository.findByName(nomeItem)
-                 .orElseGet(() -> {
-                     log.info("O item [{}] não foi localizado.", nomeItem);
-                     return 0;
-                 });
+    @KafkaListener(topics = "vendas-topic", groupId = "estoque-group")
+    public void kafkaListener(Venda venda){
+        log.info("Venda recebida: []", venda);
 
-         estoqueRepository.diminuirEstoque(nomeItem, quantidade);
+        //atualizarEstoque(venda);
+    }
 
+    public void atualizarEstoque(Venda venda){
+        estoqueRepository.diminuirEstoque(venda.getNomeItem(), venda.getQuantidade());
     }
 }

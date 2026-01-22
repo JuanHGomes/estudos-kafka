@@ -1,11 +1,13 @@
-package com.example.estoqueservice.data.model;
+package com.example.estoqueservice.data.estoque.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @Entity
 public class Item {
     @Id
@@ -15,5 +17,4 @@ public class Item {
     private String name;
 
     private Long quantidade;
-
 }

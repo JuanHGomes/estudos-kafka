@@ -1,28 +1,13 @@
 spring:
   application:
     name: estoque-service
-server:
-  port: 8081
   kafka:
     bootstrap-servers: localhost:9092
-    producer:
-      key-serizalizer: org.apache.kafka.commom.serialization.StringSerializer
-      value-serializer: org.apache.kafka.commom.serialization.StirngSerializer
-  datasource:
-    url: jdbc:postgresql://localhost:5432/mydatabase
-    username: myuser
-    password: mypassword
-    driver-class-name: org.postgresql.Driver
-
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
+    consumer:
+      group-id: estoque-group
+      key-deserializer: org.apache.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+        spring.json.trusted.packages: "*"
+      auto-offset-reset: earliest
 
-    data:
-      mongodb:
-        uri: mongodb://my_mongo_user:my_mongo_pass@localhost:27017/myMongoDB
-        database: myMongoDB
