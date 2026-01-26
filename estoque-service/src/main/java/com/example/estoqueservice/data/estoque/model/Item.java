@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 public class Item {
     @Id
     private String id;
-
     @Column(unique = true)
     private String name;
-
     private Long quantidade;
 }

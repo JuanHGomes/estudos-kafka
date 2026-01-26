@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   application:
     name: estoque-service
@@ -5,9 +7,24 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: estoque-group
-      key-deserializer: org.apache.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+        spring.json.value.default.type: com.example.estoqueservice.messaging.model.VendaEvent
+        spring.json.type.mapping: com.example.vendasservice.messaging.model.VendaEvent:com.example.estoqueservice.messaging.model.VendaEvent
       auto-offset-reset: earliest
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydatabase
+    username: myuser
+    password: mypassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
