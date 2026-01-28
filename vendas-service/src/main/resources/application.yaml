@@ -1,17 +1,8 @@
 spring:
-  application-name: vendas-service
+  application:
+    name: vendas-service
+  kafka:
+    bootstrap-servers: localhost:9092
   data:
     mongodb:
-      uri: mongodb://admin:password123@localhost:27017/myapp?authSource=admin
-  kafka:
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
-logging:
-  level:
-    org.springframework.data.mongodb: DEBUG
-    org.mongodb.driver: DEBUG
-
-server:
-  port: 8086
+      uri: mongodb://admin:password123@localhost:27017/vendas?authSource=admin
