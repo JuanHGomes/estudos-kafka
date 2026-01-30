@@ -3,12 +3,14 @@ package com.example.estoqueservice.data.estoque.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(name = "estoque")
 public class Item {
     @Id
     private String id;
