@@ -4,22 +4,20 @@ import com.example.vendas_service.business.mapper.VendasServiceMapper;
 import com.example.vendas_service.data.VendasRepository;
 import com.example.vendas_service.data.model.Venda;
 import com.example.vendas_service.messaging.VendasProducer;
-import com.example.vendas_service.messaging.model.VendaEvent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class VendasService {
 
-    private final String VENDAS_TOPIC = "VENDAS_TOPIC";
-
     private final VendasRepository repository;
     private final VendasProducer kafkaSender;
-    private final VendasServiceMapper mapper;
 
     public Venda novaVenda(Venda venda){
+       log.info("Salvando venda no mongodb: [{}]", venda);
        Venda novaVendaSalva = repository.salvarNovaVenda(venda);
 
        kafkaSender.publicarVenda(venda);

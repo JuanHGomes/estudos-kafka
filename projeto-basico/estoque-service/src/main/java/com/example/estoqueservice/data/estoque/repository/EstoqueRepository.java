@@ -17,4 +17,7 @@ public interface EstoqueRepository extends JpaRepository<Item, String>{
     @Modifying
     @Query("update Item i set i.quantidade = i.quantidade - :quantidade where i.name = :name and i.quantidade >= :quantidade")
     int diminuirEstoque(@Param("name")String name, @Param("quantidade")Long quantidade);
+
+    @Query("select i.quantidade from Item i where i.name = :name")
+    Long getQuantidade(@Param("name")String nomeItem);
 }
