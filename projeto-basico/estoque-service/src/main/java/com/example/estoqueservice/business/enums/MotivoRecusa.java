@@ -1,5 +1,5 @@
 package com.example.estoqueservice.business.enums;
 
 public enum MotivoRecusa {
-    FALTA_ESTOQUE;
+    FALTA_ESTOQUE
 }

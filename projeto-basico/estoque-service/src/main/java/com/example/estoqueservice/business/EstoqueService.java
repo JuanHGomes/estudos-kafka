@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class EstoqueService {
     private final EstoqueRepository estoqueRepository;
 
-    @Transactional
     public void novaVenda(Venda venda) {
         boolean isQuantidadeDisponivel = verificarEstoque(venda);
 
@@ -26,14 +25,12 @@ public class EstoqueService {
         atualizarEstoque(venda);
     }
 
-    @Transactional
     public void atualizarEstoque(Venda venda){
         log.info("Diminuindo o estoque");
         estoqueRepository.diminuirEstoque(venda.getNomeItem(), venda.getQuantidade());
     }
 
 
-    @Transactional
     public boolean verificarEstoque(Venda venda){
         log.info("Confirmando disponibilidade do item no estoque: {}", venda.getNomeItem());
 
